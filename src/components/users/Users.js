@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import UserItem from "./UserItem";
+import Spinner from "../layout/Spinner";
+import PropTypes from "prop-types";
 
-class Users extends Component {
+const Users = ({ users, loading }) => {
   //   state = {
   //     users: [
   //       {
@@ -24,18 +26,24 @@ class Users extends Component {
   //       },
   //     ],
   //   };
-
-  render() {
+  if (loading) {
+    return <Spinner />;
+  } else {
     return (
       <div style={userStyle}>
-        {this.props.users.map((user) => {
+        {users.map((user) => {
           //return <div key={user.id}>{user.login}</div>;
           return <UserItem key={user.id} user={user} />;
         })}
       </div>
     );
   }
-}
+};
+
+Users.propTypesropTypes = {
+  users: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 const userStyle = {
   display: "grid",
